@@ -32,19 +32,31 @@ describe("ImmutableWork", function () {
     expect(work.author).to.equal(owner.address);
   });
 
+//   it("should emit an event on publishing", async function () {
+//     const title = "Immortal Lines";
+//     const ipfsHash = "QmAnotherExampleHash1234567890abcdef";
+  
+//     const tx = await contract.connect(owner).publishWork(title, ipfsHash);
+//     const receipt = await tx.wait();
+  
+//     const event = receipt.events.find(e => e.event === "WorkPublished");
+//     expect(event.args[0]).to.equal(1); // workId
+//     expect(event.args[1]).to.equal(owner.address); // author
+//     expect(event.args[2]).to.equal(title); // title
+//     expect(event.args[3]).to.equal(ipfsHash); // ipfsHash
+//     expect(event.args[4]).to.be.a("bigint"); // timestamp
+//   });
+
+/*
+receipt.events is undefined. That’s because in Ethers v6, the transaction receipt no longer includes the .events array like it used to in v5. We need to get logs another way!
+*/
+
   it("should emit an event on publishing", async function () {
     const title = "Immortal Lines";
     const ipfsHash = "QmAnotherExampleHash1234567890abcdef";
   
-    const tx = await contract.connect(owner).publishWork(title, ipfsHash);
-    const receipt = await tx.wait();
-  
-    const event = receipt.events.find(e => e.event === "WorkPublished");
-    expect(event.args[0]).to.equal(1); // workId
-    expect(event.args[1]).to.equal(owner.address); // author
-    expect(event.args[2]).to.equal(title); // title
-    expect(event.args[3]).to.equal(ipfsHash); // ipfsHash
-    expect(event.args[4]).to.be.a("bigint"); // timestamp
+    await expect(contract.connect(owner).publishWork(title, ipfsHash))
+      .to.emit(contract, "WorkPublished");
   });
 
   it("should reject empty title or hash", async function () {
