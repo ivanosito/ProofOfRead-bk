@@ -9,8 +9,8 @@ async function main() {
   // Deploy the contract
   const immutableWork = await ImmutableWork.deploy();
 
-  // Wait for deployment
-  await immutableWork.deployed();
+//   // Wait for deployment
+//   await immutableWork.deployed();
 
   console.log(`✅ ImmutableWork deployed to: ${immutableWork.address}`);
 }
