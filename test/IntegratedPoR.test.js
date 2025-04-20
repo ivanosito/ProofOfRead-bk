@@ -15,7 +15,8 @@ describe("Integrated ProofOfRead Flow", function () {
     tokenContract = await Token.deploy(deployer.address);
 
     const ImmutableWork = await ethers.getContractFactory("ImmutableWork");
-    workContract = await ImmutableWork.deploy(tokenContract.target); // Ethers v6 uses .target instead of .address
+//    workContract = await ImmutableWork.deploy(tokenContract.target); // Ethers v6 uses .target instead of .address
+    workContract = await ImmutableWork.deploy(); // Ethers v6 uses .target instead of .address
   });
 
   it("should publish a work and mint an NFT", async function () {
