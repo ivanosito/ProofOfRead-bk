@@ -9,7 +9,10 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract ProofOfReadToken is ERC721URIStorage, Ownable {
     uint256 private _tokenIds;
 
-    constructor() ERC721("ProofOfReadToken", "PoR") {}
+    // Pass the name and symbol to the ERC721 constructor and the deployer's address to the Ownable constructor
+    // Note: carbon-unit Ivanov spotted the required parameter for the Ownable constructor. It's a newer feature in OpenZeppelin contracts.
+    // The Ownable contract now requires the address of the initial owner to be passed in the constructor.
+    constructor(address initialOwner) ERC721("ProofOfReadToken", "PoR") Ownable(initialOwner) {}
 
     /// @notice Mint a new NFT representing an immutable literary work
     /// @param recipient The address to receive the NFT
